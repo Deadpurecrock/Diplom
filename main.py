@@ -24,8 +24,14 @@ def check_login(window, login, password):
         window.setHidden(True)
         window.main.show()
     else:
-        print("error")
+        show_error("Неправильный логин или пароль!")
 
+def show_error(error):
+    dialog = QtWidgets.QMessageBox()
+    dialog.setText(error)
+    dialog.setWindowTitle("Ошибка авторизации")
+    dialog.setStandardButtons(QtWidgets.QMessageBox.Ok)
+    dialog.exec_()
 
 def stop_process(self):
     self.ui.lamp_loader.setPixmap(QtGui.QPixmap("./client/images/red_light.png"))
@@ -200,7 +206,6 @@ class MainWindow(QMainWindow):
 
     def printer_table_refresh(self):
         result = get_printer_params()
-        print("РТ Параметры Принтера", result)
 
         self.ui.table_oven_2.setItem (0, 1, QtWidgets.QTableWidgetItem(str(round(result['Temperature'], 3))))
         if (result['SolderPaste'] <10):
@@ -267,17 +272,14 @@ class MainWindow(QMainWindow):
         for i in range(0, 14):
             self.ui.table_conv.insertRow(i)
         result = get_conveys_params()
-        print("Параметры конвейера nonRT:", result)
         models = []
         types = []
+
         for i, j in enumerate(result):
                     models.append(j[0])
                     types.append(j[1])
-        
         k = int(str(models[0])[-2:])
         l = int(str(models[1])[-1:])
-
-        print("ЧИСЛА", k, l)
 
         for i in range(1, k+1):
             self.ui.table_conv.setItem(i-1, 0, QtWidgets.QTableWidgetItem(f"M0VE-{i}"))
@@ -289,8 +291,9 @@ class MainWindow(QMainWindow):
     def oven_table_titles(self):
         for i in range(0, 6):
             self.ui.table_oven.insertRow(i)
+        
         result = get_sensor_oven()        
-        print("Параметры печи nonRT:", result)
+
         for i, j in enumerate(result):
             self.ui.table_oven.setItem(i, 0, QtWidgets.QTableWidgetItem(str(j[0])))
             self.ui.table_oven.setItem(i, 2, QtWidgets.QTableWidgetItem(str(j[1])))

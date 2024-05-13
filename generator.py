@@ -2,9 +2,11 @@ import random
 import time
 
 from influxdb_client import Point
-from influxdb_client.client import influxdb_client
+
 from influxdb_client.client.write_api import SYNCHRONOUS
 from db_connect import generate_failure, change_state
+
+from influxdb_client.client import influxdb_client
 
 token = "IcnSAex8pK2KWaZlk_dLqKlaSCOgvDBPscjkDwx493iMYSyXQCqgNZ422NfPUwUeIARgccR7NBxt0Mv6Uv5Q-A=="
 org = "MIREA"

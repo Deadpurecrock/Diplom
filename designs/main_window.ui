@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
+ <class>IUS</class>
+ <widget class="QMainWindow" name="IUS">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>1920</width>
-    <height>909</height>
+    <height>910</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -283,7 +283,7 @@ border: none;</string>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>6</number>
     </property>
     <widget class="QWidget" name="page_oven">
      <widget class="QTableWidget" name="table_oven">
@@ -851,7 +851,7 @@ border: none;</string>
        <string>Готовые платы:</string>
       </property>
      </widget>
-     <widget class="QLCDNumber" name="lcd_done">
+     <widget class="QLCDNumber" name="lcdNumber">
       <property name="geometry">
        <rect>
         <x>1430</x>
@@ -1459,7 +1459,7 @@ border: none;</string>
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:24pt; font-weight:600;&quot;&gt;Печать&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt; font-weight:600;&quot;&gt;Установка компонентов&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -1823,7 +1823,7 @@ border: none;</string>
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:24pt; font-weight:600;&quot;&gt;Загрузка плат&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:24pt; font-weight:600;&quot;&gt;Очистка&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>

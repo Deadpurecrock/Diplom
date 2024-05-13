@@ -21,6 +21,7 @@ query_api = write_client.query_api()
 plate_num_1 = 0.0
 plate_num_2 = 0.0
 plate_num_3 = 0.0
+done_plates = 0
 paste_cnt = 452.0
 clean_liq = 490.0
 clean_liq_level = 125
@@ -203,6 +204,16 @@ def generate_data():
             )
             state_changer(3)
         
+        if value % 60 == 0:
+            global done_plates
+            done_plates += 1
+            plates = (
+                Point("Conveys")
+                .tag("Type", "Sensor")
+                .tag("Name", "DonePlates")
+                .field("Value", float(done_plates))
+            )
+
         defend_axis = (
             Point("Defender")
             .tag("Type", "Sensor")
@@ -241,6 +252,7 @@ def generate_data():
         write_api.write(bucket="PCB", org="MIREA", record=component_pick)
         write_api.write(bucket="PCB", org="MIREA", record=axis_pick)
 
+        write_api.write(bucket="PCB", org="MIREA", record=plates)
 
         time.sleep(1)
 

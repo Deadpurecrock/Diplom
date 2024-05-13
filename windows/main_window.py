@@ -329,6 +329,15 @@ class Ui_MainWindow(object):
         self.table_conv.setHorizontalHeaderItem(2, item)
         item = QtWidgets.QTableWidgetItem()
         self.table_conv.setHorizontalHeaderItem(3, item)
+        self.label = QtWidgets.QLabel(self.page_conveys)
+        self.label.setGeometry(QtCore.QRect(1450, 100, 231, 61))
+        font = QtGui.QFont()
+        font.setPointSize(24)
+        self.label.setFont(font)
+        self.label.setObjectName("label")
+        self.lcd_done = QtWidgets.QLCDNumber(self.page_conveys)
+        self.lcd_done.setGeometry(QtCore.QRect(1430, 180, 281, 81))
+        self.lcd_done.setObjectName("lcd_done")
         self.pages_TP.addWidget(self.page_conveys)
         self.page_printer = QtWidgets.QWidget()
         self.page_printer.setObjectName("page_printer")
@@ -1009,7 +1018,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.pages_TP.setCurrentIndex(2)
+        self.pages_TP.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -1050,6 +1059,7 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "Скорость"))
         item = self.table_conv.horizontalHeaderItem(3)
         item.setText(_translate("MainWindow", "Заполненность"))
+        self.label.setText(_translate("MainWindow", "Готовые платы:"))
         self.label_prnt_process.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:24pt;\">ОТСЛЕЖИВАЕМЫЙ ПРОЦЕСС:</span></p></body></html>"))
         self.label_prnt_err.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:26pt;\">ОШИБКИ</span></p></body></html>"))
         self.label_prnt_curr_state.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:24pt; font-weight:600;\">Печать</span></p></body></html>"))

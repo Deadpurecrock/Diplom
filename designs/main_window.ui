@@ -283,7 +283,7 @@ border: none;</string>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="page_oven">
      <widget class="QTableWidget" name="table_oven">
@@ -832,6 +832,34 @@ border: none;</string>
         <string>Заполненность</string>
        </property>
       </column>
+     </widget>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>1450</x>
+        <y>100</y>
+        <width>231</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>24</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Готовые платы:</string>
+      </property>
+     </widget>
+     <widget class="QLCDNumber" name="lcd_done">
+      <property name="geometry">
+       <rect>
+        <x>1430</x>
+        <y>180</y>
+        <width>281</width>
+        <height>81</height>
+       </rect>
+      </property>
      </widget>
     </widget>
     <widget class="QWidget" name="page_printer">

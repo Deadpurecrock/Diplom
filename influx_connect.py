@@ -107,6 +107,21 @@ def get_pick_params():
         param_values[name] = table[0].records[0].get_value()
     return param_values
 
+def get_done_plates():
+    param_name = ["DonePlates"]
+    param_values = {}
+    for name in param_name:
+        query = f"""from(bucket: "PCB")
+  |> range(start: -10s, stop: now())
+  |> filter(fn: (r) => r["_measurement"] == "Conveys")
+  |> filter(fn: (r) => r["Type"] == "Sensor")
+  |> filter(fn: (r) => r["Name"] == "{name}")
+  |> filter(fn: (r) => r["_field"] == "Value")
+  |> last()"""
+        table = query_api.query(query, org="MIREA")
+        param_values[name] = table[0].records[0].get_value()
+    return param_values
+
 
 
 

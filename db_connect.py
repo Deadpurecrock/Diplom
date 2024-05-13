@@ -102,4 +102,9 @@ if __name__ == "__main__":
     # print(get_conveys_params())
     # print(get_users())
     # print(get_aois_states())
-    print(get_resource_defender())
+    # print(get_resource_defender())
+    print(get_aois_failures())
+
+    '''
+    ('Брак платы буффер №1', 'Плата не прошла проверку после нанесения паяльной пасты.', datetime.datetime(2024, 5, 12, 3, 30, 24))
+    '''

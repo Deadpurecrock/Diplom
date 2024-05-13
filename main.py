@@ -1,3 +1,4 @@
+
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5 import uic
@@ -7,13 +8,11 @@ from windows.oven_zones_edit import Ui_Oven_page
 import sys
 from db_connect import get_sensor_oven, get_errors, get_conveys_params, get_users, get_sensor_printer, get_sensor_cleaner, get_sensor_defender, get_sensor_pick_place, get_aois_states
 from db_connect import get_resource_printer, get_resource_cleaner, get_resource_pick_place, get_resource_defender, get_aois_failures
-from influx_connect import get_oven_params, get_convey_params, get_printer_params, get_cleaner_params, get_defender_params, get_pick_params
+from influx_connect import get_oven_params, get_convey_params, get_printer_params, get_cleaner_params, get_defender_params, get_pick_params, get_done_plates
 from generator import change_params as generator_change
 
 def change_widget(self, n):
     self.ui.pages_TP.setCurrentIndex(n)
-
-#### Change equipment state lights ####
 
 
 def check_login(window, login, password):
@@ -49,7 +48,6 @@ def stop_process(self):
     msg.setStandardButtons(QtWidgets.QMessageBox.Ok)
     msg.setIcon(QtWidgets.QMessageBox.Information)
     msg.exec_()
-
 
 
 class MainWindow(QMainWindow):
@@ -172,6 +170,7 @@ class MainWindow(QMainWindow):
 
         self.pick_place_table_titles()
         self.pick_resource_table_titles()
+
         
 
         self.errors = []
@@ -181,6 +180,10 @@ class MainWindow(QMainWindow):
         self.timer.setInterval(1000)
         self.timer.timeout.connect(self.get_params)
         self.timer.start()
+
+    def display_plates(self):
+        result = get_done_plates()
+        self.ui.lcd_done.display(int(result['DonePlates']))
 
     def get_params(self):
         ##  Обновляемые функции
@@ -193,6 +196,7 @@ class MainWindow(QMainWindow):
         # self.aoi_table_refresh()
         self.defender_table_refresh()
         self.pick_table_refresh()
+        self.display_plates()
 
     def printer_table_refresh(self):
         result = get_printer_params()
@@ -240,7 +244,6 @@ class MainWindow(QMainWindow):
         self.ui.table_pick_material_3.setItem(0, 1, QtWidgets.QTableWidgetItem(str(round(result['DefendLiquid'], 3))))
         pass
 
-
     def oven_edit_win(self):
         self.oven_edit.show()
     
@@ -282,7 +285,6 @@ class MainWindow(QMainWindow):
         for i in range(1, l+1):
             self.ui.table_conv.setItem(i+k-1, 0, QtWidgets.QTableWidgetItem(f"GR4B-{i}"))
             self.ui.table_conv.setItem(i+k-1, 1, QtWidgets.QTableWidgetItem(str(types[1])))
-
 
     def oven_table_titles(self):
         for i in range(0, 6):
@@ -366,7 +368,7 @@ class MainWindow(QMainWindow):
             self.ui.table_pick_material_3.setItem(i, 2, QtWidgets.QTableWidgetItem(str(j[1])))
 
     def aoi_table_titles(self):
-        for i in range(0, 2):
+        for i in range(0, 3):
             self.ui.table_spi.insertRow(i)
         result = get_aois_states()
         print("Параметры AOI nonRT:", result)
@@ -423,14 +425,15 @@ class MainWindow(QMainWindow):
             self.ui.table_oven.setItem(i, 1, QtWidgets.QTableWidgetItem(str(round(k,3))))
 
     def ban_table_refresh(self):
-        result = get_aois_failures()
+        result = reversed(get_aois_failures())
         for i in result:
             if (i) not in self.bans:
                 self.bans.append(i)
                 self.ui.table_spi_ban.insertRow(self.ui.table_spi_ban.rowCount())
-                self.ui.table_spi_ban.setItem(self.ui.table_pick_err_3.rowCount()-1, 0, QtWidgets.QTableWidgetItem(str(i[0])))
-                self.ui.table_spi_ban.setItem(self.ui.table_pick_err_3.rowCount()-1, 1, QtWidgets.QTableWidgetItem(str(i[1])))
-                self.ui.table_spi_ban.setItem(self.ui.table_pick_err_3.rowCount()-1, 2, QtWidgets.QTableWidgetItem(str(i[2])))
+                self.ui.table_spi_ban.setItem(self.ui.table_spi_ban.rowCount()-1, 0, QtWidgets.QTableWidgetItem(str(i[0])))
+                self.ui.table_spi_ban.setItem(self.ui.table_spi_ban.rowCount()-1, 1, QtWidgets.QTableWidgetItem(str(i[1])))
+                self.ui.table_spi_ban.setItem(self.ui.table_spi_ban.rowCount()-1, 2, QtWidgets.QTableWidgetItem(str(i[2])))
+
 
 
     def lamps_light(self):
@@ -447,7 +450,6 @@ class MainWindow(QMainWindow):
         self.ui.lamp_cleaner.setPixmap(QtGui.QPixmap("./client/images/green_light.png"))
         self.ui.lamp_defender.setPixmap(QtGui.QPixmap("./client/images/green_light.png"))
         self.ui.lamp_plate_tester.setPixmap(QtGui.QPixmap("./client/images/green_light.png"))
-
 
 
 class LoginPage(QMainWindow):    
@@ -508,5 +510,4 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     loginwin = LoginPage()
     loginwin.show()
-    sys.exit(app.exec_())
-    
+    sys.exit(app.exec_())    

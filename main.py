@@ -427,11 +427,10 @@ class MainWindow(QMainWindow):
         for i in result:
             if (i) not in self.bans:
                 self.bans.append(i)
-                print("EBLO:", str(i[0]), "/", str(i[1]), "/", str(i[2]))
                 self.ui.table_spi_ban.insertRow(self.ui.table_spi_ban.rowCount())
-                self.ui.table_spi_ban.setItem(self.ui.table_pick_err_3.rowCount()-2, 0, QtWidgets.QTableWidgetItem(str(i[0])))
-                self.ui.table_spi_ban.setItem(self.ui.table_pick_err_3.rowCount()-2, 1, QtWidgets.QTableWidgetItem(str(i[1])))
-                self.ui.table_spi_ban.setItem(self.ui.table_pick_err_3.rowCount()-2, 2, QtWidgets.QTableWidgetItem(str(i[2])))
+                self.ui.table_spi_ban.setItem(self.ui.table_pick_err_3.rowCount()-1, 0, QtWidgets.QTableWidgetItem(str(i[0])))
+                self.ui.table_spi_ban.setItem(self.ui.table_pick_err_3.rowCount()-1, 1, QtWidgets.QTableWidgetItem(str(i[1])))
+                self.ui.table_spi_ban.setItem(self.ui.table_pick_err_3.rowCount()-1, 2, QtWidgets.QTableWidgetItem(str(i[2])))
 
 
     def lamps_light(self):
